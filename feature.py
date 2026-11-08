@@ -11,6 +11,47 @@ import time
 from dateutil.parser import parse as date_parse
 from urllib.parse import urlparse
 
+def validate_public_url(url):
+    parsed = urlparse(url)
+
+    if parsed.scheme not in ("http", "https"):
+        raise ValueError("Only HTTP and HTTPS URLs are supported.")
+
+    if not parsed.hostname:
+        raise ValueError("Invalid hostname.")
+
+    if parsed.username or parsed.password:
+        raise ValueError("URLs containing credentials are not allowed.")
+
+    if parsed.port not in (None, 80, 443):
+        raise ValueError("This port is not supported.")
+
+    hostname = parsed.hostname
+
+    try:
+        ip = ipaddress.ip_address(hostname)
+        addresses = [ip]
+    except ValueError:
+        try:
+            results = socket.getaddrinfo(
+                hostname, None, type=socket.SOCK_STREAM
+            )
+            addresses = [
+                ipaddress.ip_address(result[4][0])
+                for result in results
+            ]
+        except socket.gaierror:
+            raise ValueError("Unable to resolve hostname.")
+
+    if not addresses:
+        raise ValueError("Hostname has no valid IP address.")
+
+    for address in addresses:
+        if not address.is_global:
+            raise ValueError("Private or restricted network addresses are blocked.")
+
+    return True
+
 class FeatureExtraction:
     features = []
     def __init__(self,url):
@@ -23,10 +64,38 @@ class FeatureExtraction:
         self.soup = ""
 
         try:
-            self.response = requests.get(url, timeout=6, headers={"User-Agent": "Mozilla/5.0 PhishGuardDemo/1.0"})
-            self.soup = BeautifulSoup(self.response.text, 'html.parser')
-        except:
-            pass
+            validate_public_url(url)
+
+            self.response = requests.get(
+                url,
+                timeout=(3, 5),
+                headers={
+                    "User-Agent": "Mozilla/5.0 PhishGuardDemo/1.0"
+                },
+                allow_redirects=False,
+                stream=True
+            )
+
+            max_size = 2 * 1024 * 1024
+            content = bytearray()
+
+            for chunk in self.response.iter_content(chunk_size=8192):
+                content.extend(chunk)
+
+                if len(content) > max_size:
+                    raise ValueError("Website response exceeds the allowed size.")
+
+            self.response._content = bytes(content)
+            self.response._content_consumed = True
+
+            self.soup = BeautifulSoup(
+                self.response.text,
+                "html.parser"
+            )
+
+        except Exception as exc:
+            self.response = None
+            self.soup = BeautifulSoup("", "html.parser")
 
         try:
             self.urlparse = urlparse(url)

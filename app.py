@@ -26,6 +26,11 @@ def normalize_url(raw_url):
     if not value.startswith(("http://", "https://")):
         value = "https://" + value
     parsed = urlparse(value)
+    if parsed.username or parsed.password:
+        raise ValueError("URLs containing credentials are not allowed.")
+
+    if parsed.port not in (None, 80, 443):
+        raise ValueError("Unsupported port.")
     if parsed.scheme not in ("http", "https") or not parsed.netloc:
         raise ValueError("Enter a valid http:// or https:// URL.")
     # Do not allow IP-literal targets in this first version.

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Model overview{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div class="eyebrow">MODEL OVERVIEW · EXPERIMENTAL RESULTS</div>
+  <h1>The model behind <span>the scan.</span></h1>
+  <p>Three classifiers were trained and evaluated on the same stratified split. Random Forest was selected using five-fold cross-validation phishing F1-score.</p>
+</section>
+<div class="metrics-grid">
+  <div class="metric-card"><small>SELECTED ALGORITHM</small><strong class="metric-word">Random<br>Forest</strong><span>400 decision trees</span></div>
+  <div class="metric-card"><small>TRAINING ACCURACY</small><strong>99.02<em>%</em></strong><span>Training partition</span></div>
+  <div class="metric-card"><small>TEST ACCURACY</small><strong>97.29<em>%</em></strong><span>Held-out test partition</span></div>
+  <div class="metric-card"><small>PHISHING F1-SCORE</small><strong>96.91<em>%</em></strong><span>Phishing treated as positive class</span></div>
+</div>
+<div class="content-card model-note"><div class="round-icon">ⓘ</div><div><h3>Why Random Forest?</h3><p>It achieved the best five-fold cross-validation phishing F1-score (96.58%) and the best holdout phishing recall (96.02%) among Logistic Regression, Random Forest and Gradient Boosting. Gradient Boosting remains a strong comparison model, but it did not win in this experiment.</p></div></div>
+<div class="content-card model-note"><div><h3>ROC curve comparison</h3><p>ROC-AUC: Random Forest 99.78%, Gradient Boosting 99.34%, Logistic Regression 98.08%.</p><img src="{{ url_for('static', filename='images/roc_curve_comparison.png') }}" alt="ROC curve comparison for the three classifiers" style="display:block;width:100%;height:auto;margin-top:16px;border-radius:12px"></div></div>
+{% endblock %}

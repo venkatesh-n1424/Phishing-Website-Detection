@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Scan result{% endblock %}
+{% block content %}
+<section class="result-wrap">
+  <a class="back-link" href="{{ url_for('index') }}">← Scan another URL</a>
+  <div class="result-card">
+    <div class="result-icon {{ 'danger' if is_phishing else 'safe' }}">{{ '!' if is_phishing else '✓' }}</div>
+    <div class="eyebrow">SCAN COMPLETE</div>
+    <h1>{{ 'Potential phishing website' if is_phishing else 'Likely legitimate website' }}</h1>
+    <p class="result-sub">{{ 'The model identified signals associated with phishing websites. Avoid entering personal or payment information unless you verify the site independently.' if is_phishing else 'The model did not identify a phishing classification for this URL. This does not guarantee that the website is safe.' }}</p>
+    <div class="scanned-url"><span>SCANNED ADDRESS</span><strong>{{ scanned_url }}</strong></div>
+    <div class="probability-grid">
+      <div class="probability"><div class="prob-label"><span class="red-dot"></span> Phishing probability</div><strong>{{ phishing_probability }}%</strong><div class="meter"><i style="width: {{ phishing_probability }}%"></i></div></div>
+      <div class="probability"><div class="prob-label"><span class="green-dot"></span> Legitimate probability</div><strong>{{ legitimate_probability }}%</strong><div class="meter meter-green"><i style="width: {{ legitimate_probability }}%"></i></div></div>
+    </div>
+    <div class="disclaimer">Model output is probabilistic and depends on successful website feature extraction. Do not use this result as the only basis for a security decision.</div>
+    <a class="button button-primary result-button" href="{{ url_for('index') }}">Scan another URL →</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Model comparison{% endblock %}
+{% block content %}
+<section class="page-heading"><div class="eyebrow">MODEL COMPARISON</div><h1>Three models. <span>One evaluation.</span></h1><p>Confusion matrices from the same 2,211-row holdout test set. Rows are actual labels and columns are predicted labels, ordered as phishing then legitimate.</p></section>
+<div class="content-card model-note"><div><h3>Random Forest · selected model</h3><p>941 phishing URLs correctly detected; 39 phishing URLs missed; 21 legitimate URLs incorrectly flagged.</p><img src="{{ url_for('static', filename='images/random_forest_confusion_matrix.png') }}" alt="Random Forest confusion matrix" style="display:block;width:min(100%,520px);height:auto;margin:12px auto;border-radius:12px"></div></div>
+<div class="content-card model-note"><div><h3>Gradient Boosting</h3><p>922 phishing URLs correctly detected; 58 phishing URLs missed; 37 legitimate URLs incorrectly flagged.</p><img src="{{ url_for('static', filename='images/gradient_boosting_confusion_matrix.png') }}" alt="Gradient Boosting confusion matrix" style="display:block;width:min(100%,520px);height:auto;margin:12px auto;border-radius:12px"></div></div>
+<div class="content-card model-note"><div><h3>Logistic Regression · baseline</h3><p>883 phishing URLs correctly detected; 97 phishing URLs missed; 61 legitimate URLs incorrectly flagged.</p><img src="{{ url_for('static', filename='images/logistic_regression_confusion_matrix.png') }}" alt="Logistic Regression confusion matrix" style="display:block;width:min(100%,520px);height:auto;margin:12px auto;border-radius:12px"></div></div>
+{% endblock %}

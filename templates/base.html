@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Machine-learning powered phishing URL awareness demo.">
+  <title>{% block title %}PhishGuard{% endblock %} · PhishGuard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <nav class="nav wrap">
+    <a class="brand" href="{{ url_for('first') }}"><span class="brand-mark">P</span><span>phish<span class="brand-light">guard</span></span></a>
+    <div class="nav-links">
+      <a href="{{ url_for('index') }}">URL Scanner</a>
+      <a href="{{ url_for('performance') }}">Model</a>
+      <a href="{{ url_for('upload') }}">Dataset Preview</a>
+    </div>
+    <a class="nav-cta" href="{{ url_for('index') }}">Scan a URL <span>↗</span></a>
+  </nav>
+  <main class="wrap main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer wrap">
+    <div class="brand footer-brand"><span class="brand-mark">P</span><span>phish<span class="brand-light">guard</span></span></div>
+    <p>Machine-learning project demo · Always verify suspicious links independently.</p>
+  </footer>
+</body>
+</html>

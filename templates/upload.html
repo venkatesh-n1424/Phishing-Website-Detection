@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Dataset preview{% endblock %}
+{% block content %}
+<section class="page-heading"><div class="eyebrow">DATA EXPLORER</div><h1>Preview a <span>CSV dataset.</span></h1><p>Upload a CSV file to inspect its first 100 rows. This feature previews data only; it does not retrain or modify the saved model.</p></section>
+<div class="scanner-panel upload-panel">
+  <div class="panel-heading"><div><span class="panel-kicker">OPTIONAL DATASET</span><h2>Choose a CSV file</h2></div><span class="round-icon">⇧</span></div>
+  <form method="post" enctype="multipart/form-data" class="scan-form">
+    <label for="datasetfile">CSV file</label><input class="file-input" id="datasetfile" name="datasetfile" type="file" accept=".csv,text/csv" required>
+    <p class="input-hint">For a quick preview, use the included dataset at dataset/upload.csv.</p>
+    <button class="button button-primary scan-button" type="submit">Preview dataset →</button>
+  </form>
+</div>
+{% endblock %}

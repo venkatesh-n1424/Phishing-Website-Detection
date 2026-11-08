@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}URL Scanner{% endblock %}
+{% block content %}
+<section class="page-heading">
+  <div class="eyebrow"><span class="pulse"></span> PHISHING DETECTION</div>
+  <h1>Check a website <span>before you trust it.</span></h1>
+  <p>Paste a full website address. The model extracts 30 signals and estimates whether the URL resembles a phishing or legitimate website.</p>
+</section>
+<section class="scanner-layout">
+  <div class="scanner-panel">
+    <div class="panel-heading"><div><span class="panel-kicker">01 / SCAN TARGET</span><h2>Enter website URL</h2></div><span class="round-icon">⌁</span></div>
+    <form action="{{ url_for('posts') }}" method="post" class="scan-form">
+      <label for="url">Website address</label>
+      <div class="url-input-wrap"><span>↗</span><input id="url" name="url" type="text" placeholder="https://example.com" required autocomplete="url"></div>
+      <p class="input-hint">Include the domain you want to inspect. We’ll add https:// if it’s missing.</p>
+      <button class="button button-primary scan-button" type="submit">Analyse URL <span>→</span></button>
+    </form>
+    <div class="privacy-note"><span>ⓘ</span> Only scan websites you are authorised to access. Results are predictions, not a security guarantee.</div>
+  </div>
+  <aside class="side-info">
+    <div class="side-card dark-card"><div class="side-icon">◈</div><h3>What happens next?</h3><ol><li><span>1</span> URL and domain checks</li><li><span>2</span> Website feature extraction</li><li><span>3</span> Random Forest prediction</li></ol></div>
+    <div class="side-card"><div class="side-icon soft-icon">✳</div><h3>Built for awareness</h3><p>This academic project demonstrates how machine learning can use URL and page characteristics to flag suspicious websites.</p></div>
+  </aside>
+</section>
+{% endblock %}

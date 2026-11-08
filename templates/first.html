@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Safer links start here{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="pulse"></span> MACHINE LEARNING · URL INTELLIGENCE</div>
+    <h1>One click can change everything.<br><span>Check the link first.</span></h1>
+    <p class="hero-text">PhishGuard analyses website and URL signals with a trained Random Forest model to help you spot potentially deceptive websites.</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{{ url_for('index') }}">Scan a website <span>→</span></a>
+      <a class="text-link" href="{{ url_for('performance') }}">Explore the model <span>↗</span></a>
+    </div>
+    <div class="trust-row"><span class="trust-icon">✓</span> Fast feature-based analysis <span class="dot-sep">·</span> No account required</div>
+  </div>
+  <div class="hero-visual">
+    <div class="orb orb-a"></div><div class="orb orb-b"></div>
+    <div class="scan-card">
+      <div class="scan-card-top"><span class="mini-lock">⌑</span><span>LINK SECURITY CHECK</span><span class="live-tag">LIVE DEMO</span></div>
+      <div class="fake-url"><span class="url-lock">⌑</span> https://your-website.com <span class="check-mark">✓</span></div>
+      <div class="scan-line"><span></span></div>
+      <div class="scan-status"><span class="status-dot"></span> Ready to analyse</div>
+      <div class="signal-grid"><div><b>30</b><small>URL features</small></div><div><b>ML</b><small>Classifier</small></div><div><b>2</b><small>Classes</small></div></div>
+      <div class="shield-art"><div class="shield">✓</div><span>Stay one step ahead</span></div>
+    </div>
+    <div class="float-chip chip-top"><span>✦</span> URL intelligence</div>
+    <div class="float-chip chip-bottom"><span class="green-dot"></span> Model ready</div>
+  </div>
+</section>
+<section class="feature-strip">
+  <div><span class="feature-icon">⌁</span><b>URL signals</b><small>Structure and domain indicators</small></div>
+  <div><span class="feature-icon">◈</span><b>Page signals</b><small>Website behaviour indicators</small></div>
+  <div><span class="feature-icon">✳</span><b>ML prediction</b><small>Random Forest classifier</small></div>
+</section>
+<section class="bottom-cta"><div><div class="eyebrow">READY WHEN YOU ARE</div><h2>Make your next click a <span>safer one.</span></h2></div><a class="button button-primary" href="{{ url_for('index') }}">Open URL scanner →</a></section>
+{% endblock %}

@@ -2,6 +2,14 @@
 
 A Flask web application that uses a retrained Random Forest classifier to classify website URLs using 30 engineered URL and webpage features. Three algorithms (Logistic Regression, Random Forest and Gradient Boosting) are compared in the included experiment.
 
+
+## Live Demo
+
+**Try the deployed application:** https://phishing-website-detection-79oe.onrender.com
+
+> Note: The free Render service may take a little time to wake up after inactivity. This is an educational demonstration, not a guarantee that a website is safe or malicious.
+
+
 ## Project structure
 
 ```text
